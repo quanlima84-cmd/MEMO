@@ -1,433 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MEMO Streaming</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MEMO Streaming</title>
 
-<style>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
+    body{
+      background:#021224;
+      color:white;
+    }
 
-body{
-  background:#021224;
-  color:white;
-}
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 50px;
+      background:#010b16;
+    }
 
-/* HEADER */
+    .logo{
+      font-size:32px;
+      font-weight:bold;
+      color:#1e90ff;
+    }
 
-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 50px;
-  background:#010b16;
-  position:fixed;
-  width:100%;
-  top:0;
-  z-index:1000;
-}
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      transition:0.3s;
+    }
 
-.logo{
-  font-size:34px;
-  font-weight:bold;
-  color:#1e90ff;
-}
+    nav a:hover{
+      color:#1e90ff;
+    }
 
-nav a{
-  color:white;
-  text-decoration:none;
-  margin-left:25px;
-  transition:0.3s;
-}
+    .hero{
+      height:90vh;
+      background:
+      linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+      url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1400&auto=format&fit=crop')
+      center/cover no-repeat;
 
-nav a:hover{
-  color:#1e90ff;
-}
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+    }
 
-/* HERO SECTION */
+    .hero-content h1{
+      font-size:65px;
+      margin-bottom:20px;
+    }
 
-.hero{
-  height:100vh;
-  background:
-  linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
-  url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1600&auto=format&fit=crop')
-  center/cover no-repeat;
+    .hero-content p{
+      font-size:22px;
+      margin-bottom:30px;
+    }
 
-  display:flex;
-  align-items:center;
-  padding:0 60px;
-}
+    .btn{
+      background:#1e90ff;
+      color:white;
+      padding:15px 35px;
+      border:none;
+      border-radius:8px;
+      font-size:18px;
+      cursor:pointer;
+      transition:0.3s;
+    }
 
-.hero-content{
-  max-width:700px;
-}
+    .btn:hover{
+      background:#0073e6;
+    }
 
-.hero-content h1{
-  font-size:70px;
-  margin-bottom:20px;
-}
+    .section{
+      padding:60px 50px;
+    }
 
-.hero-content p{
-  font-size:22px;
-  margin-bottom:30px;
-}
+    .section h2{
+      margin-bottom:30px;
+      font-size:32px;
+    }
 
-.hero-buttons button{
-  padding:15px 35px;
-  border:none;
-  border-radius:8px;
-  margin-right:15px;
-  font-size:18px;
-  cursor:pointer;
-}
+    .movies{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
 
-.watch-btn{
-  background:#1e90ff;
-  color:white;
-}
+    .movie-card{
+      background:#0b2345;
+      border-radius:12px;
+      overflow:hidden;
+      transition:0.3s;
+    }
 
-.info-btn{
-  background:#ffffff33;
-  color:white;
-}
+    .movie-card:hover{
+      transform:scale(1.05);
+    }
 
-/* MOVIE SECTIONS */
+    .movie-card img{
+      width:100%;
+      height:300px;
+      object-fit:cover;
+    }
 
-.section{
-  padding:70px 50px;
-}
+    .movie-info{
+      padding:15px;
+    }
 
-.section h2{
-  margin-bottom:30px;
-  font-size:32px;
-}
+    footer{
+      background:#010b16;
+      text-align:center;
+      padding:25px;
+      margin-top:40px;
+    }
 
-.movies-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:25px;
-}
+    @media(max-width:768px){
+      .hero-content h1{
+        font-size:42px;
+      }
 
-.movie-card{
-  background:#0b2345;
-  border-radius:14px;
-  overflow:hidden;
-  transition:0.3s;
-}
+      header{
+        flex-direction:column;
+      }
 
-.movie-card:hover{
-  transform:scale(1.05);
-}
+      nav{
+        margin-top:15px;
+      }
+    }
 
-.movie-card img{
-  width:100%;
-  height:320px;
-  object-fit:cover;
-}
-
-.movie-info{
-  padding:15px;
-}
-
-.movie-info h3{
-  margin-bottom:8px;
-}
-
-.movie-info p{
-  color:#cccccc;
-}
-
-/* SETTINGS PANEL */
-
-.settings-btn{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  background:#1e90ff;
-  padding:14px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  z-index:1000;
-}
-
-.settings-panel{
-  position:fixed;
-  top:0;
-  right:-340px;
-  width:320px;
-  height:100%;
-  background:#081b33;
-  padding:30px;
-  transition:0.4s;
-  z-index:2000;
-}
-
-.settings-panel.active{
-  right:0;
-}
-
-.settings-panel h2{
-  margin-bottom:20px;
-}
-
-.settings-panel label{
-  display:block;
-  margin-top:15px;
-  margin-bottom:8px;
-}
-
-.settings-panel select,
-.settings-panel button{
-  width:100%;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  margin-bottom:10px;
-}
-
-.close-btn{
-  background:#ff4444;
-  color:white;
-}
-
-/* FOOTER */
-
-footer{
-  background:#010b16;
-  text-align:center;
-  padding:25px;
-  margin-top:40px;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-  header{
-    flex-direction:column;
-  }
-
-  nav{
-    margin-top:15px;
-  }
-
-  .hero-content h1{
-    font-size:45px;
-  }
-
-}
-
-</style>
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
+  <header>
+    <div class="logo">MEMO</div>
 
-<header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Movies</a>
+      <a href="#">TV Shows</a>
+      <a href="#">Trending</a>
+      <a href="#">My List</a>
+    </nav>
+  </header>
 
-<div class="logo">MEMO</div>
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Unlimited Movies & TV Shows</h1>
+      <p>Watch anytime, anywhere with MEMO Streaming</p>
+      <button class="btn">Start Watching</button>
+    </div>
+  </section>
 
-<nav>
-<a href="#">Home</a>
-<a href="#">Movies</a>
-<a href="#">TV Shows</a>
-<a href="#">Trending</a>
-<a href="#">My List</a>
-</nav>
+  <section class="section">
+    <h2>Trending Now</h2>
 
-</header>
+    <div class="movies">
 
-<!-- HERO -->
+      <div class="movie-card">
+        <img src="https://picsum.photos/300/400?1">
+        <div class="movie-info">
+          <h3>Night Hunter</h3>
+          <p>Action • Thriller</p>
+        </div>
+      </div>
 
-<section class="hero">
+      <div class="movie-card">
+        <img src="https://picsum.photos/300/400?2">
+        <div class="movie-info">
+          <h3>Dark City</h3>
+          <p>Drama • Mystery</p>
+        </div>
+      </div>
 
-<div class="hero-content">
+      <div class="movie-card">
+        <img src="https://picsum.photos/300/400?3">
+        <div class="movie-info">
+          <h3>Future World</h3>
+          <p>Sci-Fi • Adventure</p>
+        </div>
+      </div>
 
-<h1>Unlimited Movies & TV Shows</h1>
+      <div class="movie-card">
+        <img src="https://picsum.photos/300/400?4">
+        <div class="movie-info">
+          <h3>Last Kingdom</h3>
+          <p>TV Series</p>
+        </div>
+      </div>
 
-<p>
-Watch the newest blockbuster movies, trending TV series,
-exclusive originals, and live entertainment only on MEMO.
-</p>
+    </div>
+  </section>
 
-<div class="hero-buttons">
-<button class="watch-btn">Start Watching</button>
-<button class="info-btn">More Info</button>
-</div>
-
-</div>
-
-</section>
-
-<!-- TRENDING -->
-
-<section class="section">
-
-<h2>Trending Now</h2>
-
-<div class="movies-grid">
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?1">
-<div class="movie-info">
-<h3>Shadow City</h3>
-<p>Action • Thriller</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?2">
-<div class="movie-info">
-<h3>Lost Kingdom</h3>
-<p>TV Series</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?3">
-<div class="movie-info">
-<h3>Galaxy Wars</h3>
-<p>Sci-Fi</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?4">
-<div class="movie-info">
-<h3>Night Hunter</h3>
-<p>Crime Drama</p>
-</div>
-</div>
-
-</div>
-
-</section>
-
-<!-- NEW RELEASES -->
-
-<section class="section">
-
-<h2>New Releases</h2>
-
-<div class="movies-grid">
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?5">
-<div class="movie-info">
-<h3>Final Horizon</h3>
-<p>Adventure</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?6">
-<div class="movie-info">
-<h3>Dark Ocean</h3>
-<p>Thriller</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?7">
-<div class="movie-info">
-<h3>Royal Blood</h3>
-<p>Drama</p>
-</div>
-</div>
-
-<div class="movie-card">
-<img src="https://picsum.photos/300/450?8">
-<div class="movie-info">
-<h3>Cyber Future</h3>
-<p>Sci-Fi</p>
-</div>
-</div>
-
-</div>
-
-</section>
-
-<!-- SETTINGS BUTTON -->
-
-<div class="settings-btn" onclick="openSettings()">
-⚙ Settings
-</div>
-
-<!-- SETTINGS PANEL -->
-
-<div class="settings-panel" id="settingsPanel">
-
-<h2>MEMO Settings</h2>
-
-<label>Theme Color</label>
-
-<select onchange="changeTheme(this.value)">
-<option value="#1e90ff">Blue</option>
-<option value="#ff0000">Red</option>
-<option value="#00cc66">Green</option>
-<option value="#9900ff">Purple</option>
-</select>
-
-<label>Language</label>
-
-<select>
-<option>English</option>
-<option>Spanish</option>
-<option>French</option>
-</select>
-
-<label>Video Quality</label>
-
-<select>
-<option>Auto</option>
-<option>1080p</option>
-<option>720p</option>
-<option>480p</option>
-</select>
-
-<button class="close-btn" onclick="closeSettings()">
-Close
-</button>
-
-</div>
-
-<!-- FOOTER -->
-
-<footer>
-
-<p>© 2026 MEMO Streaming Platform</p>
-
-</footer>
-
-<script>
-
-function openSettings(){
-  document.getElementById("settingsPanel")
-  .classList.add("active");
-}
-
-function closeSettings(){
-  document.getElementById("settingsPanel")
-  .classList.remove("active");
-}
-
-function changeTheme(color){
-
-  document.querySelectorAll('.watch-btn,.settings-btn')
-  .forEach(el=>{
-    el.style.background=color;
-  });
-
-}
-
-</script>
+  <footer>
+    <p>© 2026 MEMO Streaming Platform</p>
+  </footer>
 
 </body>
 </html>
